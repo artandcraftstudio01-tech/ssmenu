@@ -76,6 +76,68 @@
 <body class="min-h-screen pb-28">
 
   <!-- Top Header -->
+  
+  <!-- 3-Option Entry Order Mode Selector (Dine-In / Takeaway / Delivery) -->
+  <div id="orderModeModal" class="fixed inset-0 z-50 bg-stone-950/95 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="w-full max-w-md my-auto rounded-3xl bg-gradient-to-b from-stone-900 to-stone-950 border border-amber-500/30 p-6 sm:p-7 shadow-2xl space-y-5">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-stone-950 shadow-lg shadow-amber-500/25">
+          <i data-lucide="flame" class="w-8 h-8"></i>
+        </div>
+        <h2 class="text-2xl font-extrabold text-white tracking-tight">Sulemani Shinwari</h2>
+        <p class="text-xs sm:text-sm text-stone-400">Select how you would like to place your order</p>
+      </div>
+
+      <div class="space-y-3">
+        <button data-select-mode="dine-in" type="button" class="w-full text-left p-4 rounded-2xl bg-stone-900/90 hover:bg-amber-500/15 border border-amber-500/35 hover:border-amber-400 transition flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0 group-hover:scale-105 transition">
+            <i data-lucide="utensils" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-base font-extrabold text-white flex items-center justify-between">
+              <span>Dine-In</span>
+              <span id="modeDineInTableHint" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">Table #07</span>
+            </div>
+            <div class="text-xs text-stone-400 mt-0.5">Order directly from your table • Live kitchen tracking</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-5 h-5 text-stone-500 group-hover:text-amber-400 shrink-0"></i>
+        </button>
+
+        <button data-select-mode="takeaway" type="button" class="w-full text-left p-4 rounded-2xl bg-stone-900/90 hover:bg-sky-500/15 border border-sky-500/35 hover:border-sky-400 transition flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-500/40 flex items-center justify-center text-sky-400 shrink-0 group-hover:scale-105 transition">
+            <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-base font-extrabold text-white flex items-center justify-between">
+              <span>Takeaway / Parcel</span>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300">No 10% Tax</span>
+            </div>
+            <div class="text-xs text-stone-400 mt-0.5">Freshly packed for quick counter pickup</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-5 h-5 text-stone-500 group-hover:text-sky-400 shrink-0"></i>
+        </button>
+
+        <button data-select-mode="delivery" type="button" class="w-full text-left p-4 rounded-2xl bg-stone-900/90 hover:bg-emerald-500/15 border border-emerald-500/35 hover:border-emerald-400 transition flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 group-hover:scale-105 transition">
+            <i data-lucide="bike" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-base font-extrabold text-white flex items-center justify-between">
+              <span>Home Delivery</span>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">Bahawalpur</span>
+            </div>
+            <div class="text-xs text-stone-400 mt-0.5">Delivered hot to your doorstep</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-5 h-5 text-stone-500 group-hover:text-emerald-400 shrink-0"></i>
+        </button>
+      </div>
+
+      <div class="pt-2 border-t border-stone-800/80 text-center text-[11px] text-stone-500">
+        Powered by <span class="text-stone-300 font-semibold">Artium Studio Bahawalpur</span> • +92 312 683 5493
+      </div>
+    </div>
+  </div>
+
   <header class="sticky top-0 z-40 glass-nav border-b border-stone-800/80">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5 min-w-0">
@@ -458,14 +520,40 @@
       <div class="p-5 overflow-y-auto space-y-4 flex-1">
         <div id="cartItemsContainer" class="space-y-3"></div>
 
-        <div class="grid grid-cols-2 gap-3 pt-2">
-          <div>
+        <div class="space-y-2 pt-1">
+          <div class="text-xs text-stone-400 font-semibold">Order Category</div>
+          <div class="grid grid-cols-3 gap-2">
+            <button data-cart-mode="dine-in" type="button" class="cart-mode-btn py-2 px-2 rounded-xl text-xs font-bold border transition bg-amber-500 text-stone-950 border-amber-400">🍽️ Dine-In</button>
+            <button data-cart-mode="takeaway" type="button" class="cart-mode-btn py-2 px-2 rounded-xl text-xs font-bold border transition bg-stone-900 text-stone-300 border-stone-700">🛍️ Takeaway</button>
+            <button data-cart-mode="delivery" type="button" class="cart-mode-btn py-2 px-2 rounded-xl text-xs font-bold border transition bg-stone-900 text-stone-300 border-stone-700">🛵 Delivery</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div id="cartTableFieldWrap">
             <label class="block text-xs text-stone-400 mb-1" for="cartTableInput" data-i18n="tableNumber">Table Number</label>
             <input id="cartTableInput" type="text" value="07" class="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-800 text-sm text-white focus:border-amber-500 focus:outline-none" />
           </div>
           <div>
             <label class="block text-xs text-stone-400 mb-1" for="cartCouponInput">Promo / Game Voucher</label>
             <input id="cartCouponInput" type="text" placeholder="SHINWARI10" class="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-800 text-sm text-white uppercase focus:border-amber-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div id="cartCustomerFieldsWrap" class="hidden space-y-2.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-xs text-stone-400 mb-1" for="cartCustomerNameInput">Your Name *</label>
+              <input id="cartCustomerNameInput" type="text" placeholder="e.g. Ali Raza" class="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-800 text-sm text-white focus:border-amber-500 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs text-stone-400 mb-1" for="cartCustomerPhoneInput">Mobile / WhatsApp *</label>
+              <input id="cartCustomerPhoneInput" type="tel" placeholder="03XX-XXXXXXX" class="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-800 text-sm text-white focus:border-amber-500 focus:outline-none" />
+            </div>
+          </div>
+          <div id="cartAddressFieldWrap" class="hidden">
+            <label class="block text-xs text-stone-400 mb-1" for="cartAddressInput">Delivery Address (Bahawalpur) *</label>
+            <input id="cartAddressInput" type="text" placeholder="House #, Street, Area / Landmark..." class="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-800 text-sm text-white focus:border-amber-500 focus:outline-none" />
           </div>
         </div>
 
@@ -641,6 +729,8 @@
       brandName: "Sulemani Shinwari",
       whatsappNumber: "0301-9388868",
       tableNo: "07",
+      orderType: "dine-in", // "dine-in" | "takeaway" | "delivery"
+      orderModeChosen: false,
       tables: ["01","02","03","04","05","06","07","08","09","10","11","12"],
       selectedVariant: {},
       currentView: "menu",
@@ -1164,7 +1254,7 @@
       const couponVal = (document.getElementById("cartCouponInput").value || "").trim().toUpperCase();
       const discount = couponVal === "SHINWARI10" ? Math.round(subtotal * 0.1) : 0;
       const taxable = Math.max(0, subtotal - discount);
-      const tax = Math.round(taxable * 0.10);
+      const tax = state.orderType === "dine-in" ? Math.round(taxable * 0.10) : 0;
       const grandTotal = taxable + tax;
       return { count, subtotal, discount, tax, grandTotal, lines };
     }
@@ -1208,9 +1298,45 @@
       document.getElementById("cartGrandTotal").textContent = `Rs. ${grandTotal}`;
     }
 
-    function startOrder(lines, grandTotal, tableNo, notes) {
+    function getOrderTypeMeta(type) {
+      if (type === "delivery") return { code: "DL", label: "Delivery", short: "🛵 Delivery", badgeClass: "bg-emerald-500 text-stone-950" };
+      if (type === "takeaway") return { code: "TK", label: "Takeaway / Parcel", short: "🛍️ Takeaway", badgeClass: "bg-sky-400 text-stone-950" };
+      return { code: "DI", label: "Dine-In", short: "🍽️ Dine-In", badgeClass: "bg-amber-500 text-stone-950" };
+    }
+
+    function applyOrderModeUI() {
+      const meta = getOrderTypeMeta(state.orderType);
+      const badgeEl = document.getElementById("headerTableBadge");
+      if (badgeEl) {
+        badgeEl.textContent = state.orderType === "dine-in"
+          ? `Dine-In • Table #${state.tableNo}`
+          : meta.short;
+      }
+      const hint = document.getElementById("modeDineInTableHint");
+      if (hint) hint.textContent = `Table #${state.tableNo}`;
+
+      const tableWrap = document.getElementById("cartTableFieldWrap");
+      const custWrap = document.getElementById("cartCustomerFieldsWrap");
+      const addrWrap = document.getElementById("cartAddressFieldWrap");
+      if (tableWrap) tableWrap.classList.toggle("hidden", state.orderType !== "dine-in");
+      if (custWrap) custWrap.classList.toggle("hidden", state.orderType === "dine-in");
+      if (addrWrap) addrWrap.classList.toggle("hidden", state.orderType !== "delivery");
+
+      document.querySelectorAll("[data-cart-mode]").forEach(btn => {
+        const active = btn.getAttribute("data-cart-mode") === state.orderType;
+        btn.className = "cart-mode-btn py-2 px-2 rounded-xl text-xs font-bold border transition " + (
+          active ? "bg-amber-500 text-stone-950 border-amber-400" : "bg-stone-900 text-stone-300 border-stone-700 hover:border-stone-600"
+        );
+      });
+      renderCartBar();
+      renderCartModal();
+    }
+
+    function startOrder(lines, grandTotal, tableNo, notes, extra = {}) {
       const maxPrep = Math.max(...lines.map(l => l.item.prepMin || 15), 12);
-      const orderNum = "ZQ-" + Math.floor(100 + Math.random() * 899);
+      const orderType = extra.orderType || state.orderType || "dine-in";
+      const meta = getOrderTypeMeta(orderType);
+      const orderNum = `SS-${meta.code}-${Math.floor(1000 + Math.random() * 8999)}`;
       const firebaseKey = "ord_" + Date.now() + "_" + Math.floor(100 + Math.random() * 899);
       const cleanLines = lines.map(l => ({
         qty: Number(l.qty) || 1,
@@ -1222,16 +1348,30 @@
           prepMin: l.item ? (Number(l.item.prepMin) || 15) : 15
         }
       }));
+      const subtotal = cleanLines.reduce((s, l) => s + (l.qty * l.item.price), 0);
+      const serviceCharge = orderType === "dine-in" ? Math.round(Math.max(0, subtotal - (extra.discount || 0)) * 0.10) : 0;
       state.activeOrder = {
         id: "#" + orderNum,
         firebaseKey,
-        tableNo,
+        orderType,
+        orderTypeLabel: meta.label,
+        tableNo: orderType === "dine-in" ? tableNo : meta.label,
+        customerName: extra.customerName || "",
+        customerPhone: extra.customerPhone || "",
+        deliveryAddress: extra.deliveryAddress || "",
         notes,
         lines: cleanLines,
+        subtotal,
+        discount: extra.discount || 0,
+        serviceCharge,
         total: grandTotal,
         stageIndex: 0,
         remainingSeconds: maxPrep * 60,
-        kitchenNote: "Live from kitchen: Chef just fired up your order!",
+        kitchenNote: orderType === "delivery"
+          ? "Order confirmed! Preparing fresh for delivery."
+          : orderType === "takeaway"
+          ? "Order confirmed! Preparing your parcel for pickup."
+          : "Live from kitchen: Chef just fired up your order!",
         createdAt: Date.now(),
         placedAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       };
@@ -1291,7 +1431,10 @@
 
       const ord = state.activeOrder;
       document.getElementById("trackerOrderId").textContent = ord.id;
-      document.getElementById("trackerTableInfo").textContent = `Table #${ord.tableNo}`;
+      const _tm = getOrderTypeMeta(ord.orderType || "dine-in");
+      document.getElementById("trackerTableInfo").textContent = (ord.orderType || "dine-in") === "dine-in"
+        ? `🍽️ Dine-In • Table #${ord.tableNo}`
+        : `${_tm.short}${ord.customerName ? " • " + ord.customerName : ""}`;
       document.getElementById("trackerPlacedAt").textContent = ord.placedAt;
       document.getElementById("trackerKitchenNoteText").textContent = ord.kitchenNote;
 
@@ -1826,20 +1969,33 @@
 
       // Place Kitchen Order
       document.getElementById("btnPlaceKitchenOrder").addEventListener("click", () => {
-        const { lines, grandTotal } = calcCartTotals();
+        const { lines, discount, grandTotal } = calcCartTotals();
         if (lines.length === 0) { showToast("Add items to your cart first!"); return; }
+        const orderType = state.orderType || "dine-in";
         const tNo = document.getElementById("cartTableInput").value.trim() || state.tableNo;
+        const customerName = (document.getElementById("cartCustomerNameInput")?.value || "").trim();
+        const customerPhone = (document.getElementById("cartCustomerPhoneInput")?.value || "").trim();
+        const deliveryAddress = (document.getElementById("cartAddressInput")?.value || "").trim();
         const notes = document.getElementById("cartNotesInput").value.trim();
-        state.tableNo = tNo;
-        document.getElementById("headerTableBadge").textContent = `Table #${state.tableNo}`;
+
+        if (orderType !== "dine-in" && (!customerName || !customerPhone)) {
+          showToast("Please enter your Name & Phone Number!");
+          return;
+        }
+        if (orderType === "delivery" && !deliveryAddress) {
+          showToast("Please enter your Delivery Address!");
+          return;
+        }
+        if (orderType === "dine-in") state.tableNo = tNo;
+        applyOrderModeUI();
         state.cart = {};
         document.getElementById("cartModal").classList.add("hidden");
         renderDeals();
         renderMenu();
         renderCartBar();
-        startOrder(lines, grandTotal, tNo, notes);
+        startOrder(lines, grandTotal, tNo, notes, { orderType, customerName, customerPhone, deliveryAddress, discount });
         switchView("tracker");
-        showToast("✅ Order sent to kitchen! Track live updates here.");
+        showToast(`✅ Order ${state.activeOrder.id} confirmed! Track live updates here.`);
       });
 
       // Copy WhatsApp Order
@@ -2043,8 +2199,15 @@
       return {
         id: ord.id,
         firebaseKey: ord.firebaseKey || ("ord_" + Date.now() + "_" + Math.floor(100 + Math.random() * 899)),
+        orderType: ord.orderType || "dine-in",
+        orderTypeLabel: ord.orderTypeLabel || "Dine-In",
         tableNo: ord.tableNo,
+        customerName: ord.customerName || "",
+        customerPhone: ord.customerPhone || "",
+        deliveryAddress: ord.deliveryAddress || "",
         notes: ord.notes || "",
+        subtotal: Number(ord.subtotal) || 0,
+        serviceCharge: Number(ord.serviceCharge) || 0,
         total: Number(ord.total) || 0,
         stageIndex: Number(ord.stageIndex) || 0,
         remainingSeconds: Number(ord.remainingSeconds) || 0,
@@ -2378,6 +2541,37 @@
       renderKitchenScreen();
       lucide.createIcons();
     });
+
+    // Wire 3-Option Entry Modal & Mode Switchers
+    document.querySelectorAll("[data-select-mode]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.orderType = btn.getAttribute("data-select-mode") || "dine-in";
+        state.orderModeChosen = true;
+        const m = document.getElementById("orderModeModal");
+        if (m) m.classList.add("hidden");
+        applyOrderModeUI();
+        showToast(`Mode selected: ${getOrderTypeMeta(state.orderType).label}`);
+      });
+    });
+    document.querySelectorAll("[data-cart-mode]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.orderType = btn.getAttribute("data-cart-mode") || "dine-in";
+        applyOrderModeUI();
+      });
+    });
+    const hdrBtn = document.getElementById("btnChangeTable");
+    if (hdrBtn) {
+      hdrBtn.addEventListener("click", () => {
+        const m = document.getElementById("orderModeModal");
+        if (m) {
+          const tableModal = document.getElementById("tableModal");
+          if (tableModal) tableModal.classList.add("hidden");
+          m.classList.remove("hidden");
+        }
+      });
+    }
+    applyOrderModeUI();
+    if (window.lucide) lucide.createIcons();
   </script>
 </body>
 </html>
